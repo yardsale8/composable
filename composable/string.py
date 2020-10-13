@@ -40,3 +40,23 @@ def split_re(pat):
     r = re.compile(pat)
     return pipeable(lambda s: r.split(s))
 
+
+@pipeable
+def replace(old, new, s, count=-1):
+    ''' Return a copy with all occurrences of substring old replaced by new.
+    
+    args:
+        old: substring to be replaced
+        new: substring to replacing old
+        count: Maximum number of occurrences to replace.
+            -1 (the default value) means replace all occurrences.
+            If the optional argument count is given, only the first count occurrences are
+            replaced.
+
+    returns: a string
+    '''
+    if count != -1:
+        return s.replace(old, new, count)
+    else:
+        return s.replace(old, new)
+
