@@ -1,23 +1,34 @@
 [[package]]
-category = "main"
-description = "forge (python signatures)"
 name = "python-forge"
+version = "18.6.0"
+description = "forge (python signatures)"
+category = "main"
 optional = false
 python-versions = "*"
-version = "18.6.0"
+
+[package.extras]
+dev = ["coverage", "mypy", "pylint", "pytest", "sphinx", "sphinx-autodoc-typehints", "sphinx-paramlinks"]
+docs = ["sphinx (>=1.7.4)", "docutils", "requests", "sphinx-paramlinks"]
+testing = ["coverage", "mypy", "pylint", "pytest"]
 
 [[package]]
-category = "main"
-description = "List processing tools and functional utilities"
 name = "toolz"
+version = "0.11.1"
+description = "List processing tools and functional utilities"
+category = "main"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "0.10.0"
+python-versions = ">=3.5"
 
 [metadata]
-content-hash = "ce12cfb1c54f550894f70ce3c1cf811dd7a3f78fae9ffd92d84dad154248134a"
-python-versions = "^3.7"
+lock-version = "1.1"
+python-versions = ">=3.6"
+content-hash = "7aa51c97b17b19b447862540dea437f8f5071b720be92314a668eab53540685b"
 
-[metadata.hashes]
-python-forge = ["bf91f9a42150d569c2e9a0d90ab60a8cbed378bdf185e5120532a3481067395c"]
-toolz = ["08fdd5ef7c96480ad11c12d472de21acd32359996f69a5259299b540feba4560"]
+[metadata.files]
+python-forge = [
+    {file = "python_forge-18.6.0-py35-none-any.whl", hash = "sha256:bf91f9a42150d569c2e9a0d90ab60a8cbed378bdf185e5120532a3481067395c"},
+]
+toolz = [
+    {file = "toolz-0.11.1-py3-none-any.whl", hash = "sha256:1bc473acbf1a1db4e72a1ce587be347450e8f08324908b8a266b486f408f04d5"},
+    {file = "toolz-0.11.1.tar.gz", hash = "sha256:c7a47921f07822fe534fb1c01c9931ab335a4390c782bd28c6bcc7c2f71f3fbf"},
+]
