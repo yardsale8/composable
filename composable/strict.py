@@ -33,6 +33,14 @@ def star_map(f, L):
     Returns:
         A list of the results of f applied to each element of L.
         Note that this is a strict version of the built-in map (which returns a generator).
+
+    >>> from composable.strict import star_map
+    >>> from operator import add
+    >>> vals = list(zip(range(5), range(2, 7)))
+    >>> vals
+    [(0, 2), (1, 3), (2, 4), (3, 5), (4, 6)]
+    >>> vals >> star_map(add)
+    [2, 4, 6, 8, 10]
     '''
     return [f(*args) for args in L]
 
