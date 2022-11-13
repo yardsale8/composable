@@ -20,6 +20,30 @@ def map(f, L):
     '''
     return [f(x) for x in L]
 
+__builtin_sorted = sorted
+
+
+@pipeable
+def sorted(iterable, /, *, key=None, reverse=False):
+    '''Return a new list containing all items from the iterable in ascending order.
+
+    A custom key function can be supplied to customize the sort order, and the
+    reverse flag can be set to request the result in descending order.
+
+    Args:
+        - iterable: Any iterable sequence
+        - key: a callable/function used to compare items.
+        - reverse: Whether or not the sequence should be reversed
+
+    >>> from composable.strict import sorted
+    >>> vals = [3, 2, 1, 5, 4]
+    >>> vals >> sorted()
+    [1, 2, 3, 4, 5]
+    >>> vals >> sorted(reverse=True)
+    [5, 4, 3, 2, 1]
+    '''
+    return __builtin_sorted(iterable, key=key, reverse=reverse) 
+
 
 @pipeable
 def star_map(f, L):

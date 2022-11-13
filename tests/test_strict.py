@@ -56,3 +56,8 @@ def test_enumerate():
 def test_star_map():
     vals = [(0, 2), (1, 3), (2, 4), (3, 5), (4, 6)]
     assert (vals >> strict.star_map(add)) == [2, 4, 6, 8, 10]
+
+def test_sorted():
+    vals = [3, 2, 1, 5, 4]
+    assert (vals >> strict.sorted()) == [1, 2, 3, 4, 5]
+    assert (vals >> strict.sorted(reverse=True)) == [5, 4, 3, 2, 1]
