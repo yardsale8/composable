@@ -5,6 +5,7 @@ from .pipeable import pipeable
 def map(f, L):
     ''' applies f to all elements of L, immediately returning a list of the resulting values.
 
+    Equivalent to [f(x) for x in L]
     Args:
         f: A unary function
         L: A list of values
@@ -12,8 +13,28 @@ def map(f, L):
     Returns:
         A list of the results of f applied to each element of L.
         Note that this is a strict version of the built-in map (which returns a generator).
+
+    >>> from composable.strict import map
+    >>> range(3) >> map(lambda x: x + 5)
+    [5, 6, 7]
     '''
     return [f(x) for x in L]
+
+
+@pipeable
+def star_map(f, L):
+    ''' applies f after unpacking the elements of L as positional arguments, immediately returning a list of the resulting values.
+
+    Equivalent to [f(*args) for args in L] 
+    Args:
+        f: A function taking one or more positional arguments
+        L: A list of tuples of values to be unpacked when calling f
+
+    Returns:
+        A list of the results of f applied to each element of L.
+        Note that this is a strict version of the built-in map (which returns a generator).
+    '''
+    return [f(*args) for args in L]
 
 
 @pipeable
@@ -58,7 +79,7 @@ def zipOnto(iter1, iter2):
         iter2: a list of values
 
     returns:
-        a list of tuples of the form (i1, i2).  this is similar to zip(iter1, iter2).
+        a list of tuples of the form (i2, i1).  this is similar to zip(iter1, iter2).
         note that
         1. the order is the same as the built-in zip, meaning piping will reverse the order
            that is iter1 >> zipOnto(iter2) has the values of iter1 first, i.e. (i2, i1)

@@ -1,4 +1,5 @@
 import composable.strict as strict
+from operator import add
 
 def test_map():
     f = lambda x: x**2
@@ -51,3 +52,7 @@ def test_enumerate():
     assert strict.enumerate([]) == []
     assert strict.enumerate(L) == list(enumerate(L))
     assert L >> strict.enumerate == list(enumerate(L))
+
+def test_star_map():
+    vals = [(0, 2), (1, 3), (2, 4), (3, 5), (4, 6)]
+    assert (vals >> strict.star_map(add)) == [2, 4, 6, 8, 10]
