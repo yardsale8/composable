@@ -17,4 +17,4 @@ def split_by(funcs, obj):
     >>> range(3) >> map(split_by((str, float)))
     [('0', 0.0), ('1', 1.0), ('2', 2.0)]
     '''
-    return tuple(f(obj) for f in funcs):while
+    return tuple(f(obj) for f in funcs)

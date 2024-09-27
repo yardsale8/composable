@@ -1,5 +1,6 @@
 import composable.strict as strict
 from operator import add
+from toolz.curried.operator import add, mul
 
 def test_map():
     f = lambda x: x**2
@@ -61,3 +62,7 @@ def test_sorted():
     vals = [3, 2, 1, 5, 4]
     assert (vals >> strict.sorted()) == [1, 2, 3, 4, 5]
     assert (vals >> strict.sorted(reverse=True)) == [5, 4, 3, 2, 1]
+
+
+def test_split_by():
+    assert 3 >> strict.split_by([add(1), add(2), mul(3)]) == [4, 5, 9]

@@ -6,24 +6,22 @@ from toolz.functoolz import Compose
 
 
 class pipeable(curry):
-
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
 
     def __rrshift__(self, other):
-        """ We use the rightshift (i.e. `x >> f`) to represent piping.
+        """ Use rightshift to represent piping (i.e. `x >> f` is `f(x)`).
 
-        Note that this form or piping assumes a unary function call.
-        Use a curried function to allow piping n-ary functions."""
+        Note that this form of piping assumes a unary function call.
+        Use a curried/partial function to allow piping n-ary functions."""
         return self.__call__(other)
 
 
     def __rshift__(self, other):
-        """ We use the rightshift (i.e. `x >> f`) to represent piping.
+        """ Use rightshift to represent piping (i.e. `x >> f` is `f(x)`).
 
-        Note that this form or piping assumes a unary function call.
-        Use a curried function to allow piping n-ary functions."""
+        Note that this form of piping assumes a unary function call.
+        Use a curried/partial function to allow piping n-ary functions."""
         assert callable(other), "All subsequent elements of a pipe must be callable"
         return other.__call__(self)

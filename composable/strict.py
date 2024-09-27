@@ -1,5 +1,8 @@
 from .pipeable import pipeable
+from typing import Callable, Optional, TypeVar
 
+A = TypeVar('A')
+B = TypeVar('B')
 
 @pipeable
 def map(f, L):
@@ -134,3 +137,23 @@ def enumerate(iter):
         Note that this is a strict version of the built-in enumerate (which returns a generator).
     '''
     return list(enum(iter))
+
+
+@pipeable
+def split_by(funcs: list[Callable[[A], B]], obj:A) -> list[B]:
+    '''Apply each of a list of functions to an object, returning the list of results.
+    
+    Args:
+        - funcs: A list of functions.
+        - obj: Object to use as an argument.
+        
+    Returns: List of return values.
+
+    Example:
+
+    >>> from composable.strict import split_by
+    >>> from toolz.curried.operator import add, mul
+    >>> 3 >> split_by([add(1), add(2), mul(3)])
+    [4, 5, 9]
+    '''
+    return [f(obj) for f in funcs]

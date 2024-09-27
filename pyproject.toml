@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "composable"
-version = "0.2.1"
+version = "0.5.4"
 description = "Callable functions that be composed/piped using >> and <<"
 authors = ["Todd Iverson <tiverson@winona.edu>"]
 license = "MIT"
