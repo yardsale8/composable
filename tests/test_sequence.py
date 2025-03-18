@@ -1,5 +1,6 @@
 from composable.pipeable import pipeable
 import composable.sequence as l
+from operator import add
 
 def test_to_list():
     assert isinstance(l.to_list(range(5)), list) 
@@ -30,4 +31,15 @@ def test_join():
     assert start >> l.join(',') == target
     assert l.join(',', []) == ''
     assert [] >> l.join(',') == ''
+
+def test_reduce():
+    s1 = [1,2,3,4]
+    s2 = []
+    assert l.reduce(add, s1) == sum(s1)
+    assert (s1 >> l.reduce(add)) == sum(s1)
+    assert l.reduce(add, s1, 3) == sum(s1) + 3
+    assert (s1 >> l.reduce(add, init = 3)) == sum(s1) + 3
+    assert l.reduce(add, s2, 0) == 0
+    assert (s2 >> l.reduce(add, init=0)) == 0
+
     

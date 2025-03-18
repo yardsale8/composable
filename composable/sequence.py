@@ -1,5 +1,6 @@
 from composable.pipeable import pipeable
 from itertools import islice
+from functools import reduce as _original_reduce
 
 @pipeable
 def to_list(iter):
@@ -109,3 +110,28 @@ def tail(n, seq):
     except:
         raise ValueError("tail needs a sequence that supports len and slicing")
     return seq[built_in_slice(n, len(seq), 1)]
+
+
+@pipeable
+def reduce(func, seq, init = None):
+    '''reduce(function, sequence[, initial]) -> value
+
+    Apply a function of two arguments cumulatively to the items of a sequence,
+    from left to right, so as to reduce the sequence to a single value.
+    For example, reduce(lambda x, y: x+y, [1, 2, 3, 4, 5]) calculates
+    ((((1+2)+3)+4)+5).  If initial is present, it is placed before the items
+    of the sequence in the calculation, and serves as a default when the
+    sequence is empty.
+
+    Args:
+        - func: a 2 argument function with arguments representing the accumulator and next enter, respectively.
+        - seq: a sequence of values
+        - init: An optional initial value.  If init=None, then the first element of seq is used.
+        
+    Returns:
+        - The result of the aggregation.
+    '''
+    if init is None:
+        return _original_reduce(func, seq) # Uses first value as init
+    else:
+        return _original_reduce(func, seq, init)
