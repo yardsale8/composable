@@ -89,7 +89,7 @@ def head(n, seq):
         A seq that is a subsequence of seq that starts at index `from_` 
         and includes all values up to, but not includeing `up_to`
     '''
-    return slice(0, n, 1, seq)
+    return slice(0, n, seq)
 
 
 @pipeable
@@ -110,6 +110,7 @@ def tail(n, seq):
     except:
         raise ValueError("tail needs a sequence that supports len and slicing")
     return seq[built_in_slice(n, len(seq), 1)]
+<<<<<<< Updated upstream
 
 
 @pipeable
@@ -135,3 +136,5 @@ def reduce(func, seq, init = None):
         return _original_reduce(func, seq) # Uses first value as init
     else:
         return _original_reduce(func, seq, init)
+=======
+>>>>>>> Stashed changes

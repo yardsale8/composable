@@ -21,6 +21,7 @@ def test_replace():
     assert 'abc' >> s.replace('b', 'c') == 'acc'
     assert 'aaaabbbcc' >> s.replace('b', 'c', count=2) == 'aaaaccbcc'
 
+<<<<<<< Updated upstream
 def test_startswith():
     S = '12345'
     assert S >> s.startswith('1')
@@ -67,3 +68,9 @@ def test_join():
     #         self.fail('join() ate exception message')
     # else:
     #     self.fail('exception not raised')
+=======
+
+def test_strip():
+    assert '  \tabc\n ' >> s.strip == 'abc'
+    assert 'aaaabbbacca' >> s.strip(chars='a') == 'bbbacc'
+>>>>>>> Stashed changes

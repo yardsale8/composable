@@ -59,6 +59,7 @@ def replace(old, new, s, count=-1):
     else:
         return s.replace(old, new)
 
+<<<<<<< Updated upstream
 @pipeable
 def startswith(prefix, S, *, start = None, end = None):
     '''Return True if S starts with the specified prefix, False otherwise.
@@ -97,3 +98,13 @@ def join(sep, seq):
     'ab.pq.rs'
     '''
     return sep.join(seq)
+=======
+
+@pipeable
+def strip(s, chars=None):
+    '''Return a copy of the string with leading and trailing whitespace remove.
+    
+    If chars is given and not None, remove characters in chars instead.
+    '''
+    return s.strip() if chars is None else s.strip(chars)
+>>>>>>> Stashed changes

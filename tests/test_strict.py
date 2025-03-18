@@ -11,6 +11,15 @@ def test_map():
     assert l >> strict.map(f) == [1, 4, 9] 
 
 
+def test_maybe_map():
+    f = lambda x: x**2
+    l = [ 1, 2, 3, None ]
+    assert strict.maybe_map(f, []) == []
+    assert [] >> strict.maybe_map(f) == []
+    assert strict.maybe_map(f, l) == [1, 4, 9, None] 
+    assert l >> strict.maybe_map(f) == [1, 4, 9, None] 
+
+
 def test_filter():
     p = lambda x: x % 2 == 1
     l = [ 1, 2, 3 ]
@@ -53,6 +62,7 @@ def test_enumerate():
     assert strict.enumerate([]) == []
     assert strict.enumerate(L) == list(enumerate(L))
     assert L >> strict.enumerate == list(enumerate(L))
+<<<<<<< Updated upstream
 
 def test_star_map():
     vals = [(0, 2), (1, 3), (2, 4), (3, 5), (4, 6)]
@@ -66,3 +76,5 @@ def test_sorted():
 
 def test_split_by():
     assert 3 >> strict.split_by([add(1), add(2), mul(3)]) == [4, 5, 9]
+=======
+>>>>>>> Stashed changes

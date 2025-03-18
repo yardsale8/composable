@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 from .pipeable import pipeable
 import operator as op
 
@@ -14,3 +15,6 @@ not_ = pipeable(lambda obj:    op.not_(obj))
 truth = pipeable(lambda obj:   op.truth(obj))
 is_ = pipeable(lambda a, b:    op.is_(a, b))
 is_not = pipeable(lambda a, b: op.is_not(a, b))
+=======
+from composable.operator_ import *
+>>>>>>> Stashed changes

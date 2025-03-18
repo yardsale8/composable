@@ -1,6 +1,6 @@
-from composable import operator
+from composable import operator as op
 
-add = operator.add
+add = op.add
 
 # def test_add():
 #     assert 2 >> add(3) == 5

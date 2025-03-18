@@ -1,8 +1,4 @@
-from inspect import signature
-from functools import reduce
-from toolz import first, drop
 from toolz import curry
-from toolz.functoolz import Compose
 
 
 class pipeable(curry):

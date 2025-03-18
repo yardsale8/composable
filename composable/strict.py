@@ -23,6 +23,7 @@ def map(f, L):
     '''
     return [f(x) for x in L]
 
+<<<<<<< Updated upstream
 __builtin_sorted = sorted
 
 
@@ -71,6 +72,21 @@ def star_map(f, L):
     '''
     return [f(*args) for args in L]
 
+=======
+@pipeable
+def maybe_map(f, L):
+    ''' applies f to all elements of L that are not None, immediately returning a list of the resulting values (or None).
+
+    Args:
+        f: A unary function
+        L: A list of values
+
+    Returns:
+        A list of the results of f applied to each element of L, except None, which is mapped to None.
+        Note that this is a strict version of the built-in map (which returns a generator).
+    '''
+    return [f(x) if x is not None else None for x in L]
+>>>>>>> Stashed changes
 
 @pipeable
 def filter(p, L):
