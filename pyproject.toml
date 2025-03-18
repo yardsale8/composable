@@ -1,6 +1,6 @@
 [project]
 name = "composable"
-version = "0.9.0"
+version = "0.10.0"
 description = "Callable functions that be composed/piped using >> and <<"
 authors = [
     {name="Todd Iverson",email="tiverson@winona.edu"}
