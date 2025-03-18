@@ -1,67 +1,15 @@
-name: ci-cd
-
-on: [push, pull_request]
-
+# .github/workflows/ci-cd.yml
 jobs:
-  ci:
-    # Set up operating system
-    runs-on: ubuntu-latest
-
-    # Define job steps
-    steps:
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.12"
-
-      - name: Check-out repository
-        uses: actions/checkout@v3
-
-      - name: Install poetry
-        uses: snok/install-poetry@v1
-
-      - name: Install package
-        run: poetry install
-
-      - name: Test with pytest
-        run: poetry run pytest tests/ --cov=composable --cov-report=xml
-
-      - name: Use Codecov to track coverage
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: ./coverage.xml   # coverage report
-
-      - name: Build documentation
-        run: poetry run make html --directory docs/
-
   pypi-publish:
+    name: Upload release to PyPI
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/composable
+      url: https://pypi.org/p/<your-pypi-project-name>
     permissions:
       id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing
-
-    # Only run this job if the "ci" job passes
-    needs: ci
-
-    # Only run this job if new work is pushed to "main"
-    # if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-
-    #Only run if this is a tagged commit
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
     steps:
     # retrieve your distributions here
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.12"
-
-      - name: Check-out repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
 
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
