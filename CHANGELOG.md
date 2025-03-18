@@ -11,3 +11,9 @@
 ### Feature
 
 - Added pipeable objects and attributes contained in the objects submodule.
+
+## v0.7.0 (3/18/2025)
+
+### Feature
+
+- Added the records module for composable applicative records
