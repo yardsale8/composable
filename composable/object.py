@@ -1,3 +1,5 @@
+from composable import pipeable
+
 class PipeableObject(object):
     def __init__(self, function = lambda x: x, after_method_call = False):
         self._function = function
