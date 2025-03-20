@@ -162,6 +162,20 @@ def subset(keys, record):
     return _maybe_return_record(record, out)
 
 @pipeable
+def drop(keys, record):
+    """ Create a new record by dropping a subset of the existing keys.
+
+    Args.
+        - keys: A sequence of keys to be dropped (e.g., list(strings)).
+        - record: A record (`dict` or `Record`)
+
+    Returns.  Creates a record (`Record` or `dict`) consisting of the
+              key/value pairs for the provided `keys`
+    """
+    out = {k:v for k, v in record.items() if k not in keys}
+    return _maybe_return_record(record, out)
+
+@pipeable
 def zip(record_seq, *, keys = "union", default = None):
     """ Converts a list of records to a record of list containing the original values.
 
