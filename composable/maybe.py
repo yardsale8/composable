@@ -1,10 +1,7 @@
 from composable import pipeable
-# from composable.strict import map, filter
-# from composable.object import obj
-# from composable.utility import get
 
 class Nothing(object):
-    """A class representing nuothing
+    """A class representing nothing
 
     This class allows calling any attribute or calling like a function.
     """
@@ -19,6 +16,36 @@ class Nothing(object):
 
     def __repr__(self):
         return "Nothing()"
+
+    def map(self, func):
+        """ Map applies a function to the underlying data, if present.
+        
+        When mapping a function to Nothing, we return Nothing()
+        
+        Args.
+            - self.  Nothing()
+            - func. A single argument function to be applied. If the underlying data is type
+                    A, then `func` should be type `Callable[A, B]`, that is it should be designed
+                    to work with the underlying data.
+            
+        Returns.  Nothing().
+        """
+        return Nothing()
+    
+    def and_then(self, func):
+        """ Apply a function that returns Optional values.
+        
+        When chaining a function with `and_then` to Nothing, we return Nothing()
+        
+        Args.
+            - self.  Nothing()
+            - func. A single argument function to be applied. If the underlying data is type
+                    A, then `func` should be type `Callable[A, Optional[B]`, that is it should be designed
+                    to work with the underlying data.
+            
+        Returns.  Nothing().
+        """
+        return Nothing()
 
 
 class Just(object):
@@ -38,6 +65,39 @@ class Just(object):
     def __repr__(self):
         return f"Just({self.just.__repr__()})"
 
+    def map(self, func):
+        """ Map applies a function to the underlying data, if present.
+        
+        When mapping a function to Just(x), we return Just(func(x))
+        
+        Args.
+            - self. Just(x)
+            - func. A single argument function to be applied. If the underlying data is type
+                    A, then `func` should be type `Callable[A, B]`, that is it should be designed
+                    to work with the underlying data.
+            
+        Returns.  Just(func(x)).
+        """
+        return Just(func(self.just))
+    
+    def and_then(self, func):
+        """ Apply a function that returns Optional values.
+        
+        When chaining a function with `and_then` to Just(x), we return Nothing() if func(x) is None,
+        otherwise return Just(x).  This function is useful for clean chaining of functions with Optional return values.
+        
+        Args.
+            - self.  Just(x)
+            - func. A single argument function to be applied. If the underlying data is type
+                    A, then `func` should be type `Callable[A, Optional[B]`, that is it should be designed
+                    to work with the underlying data.
+            
+        Returns.  Just(func(x)) if func(x) is not None else Nothing().
+        """
+        return func(self.just)
+
+
+
 # The maybe type, which is an alternative to Optional and 
 # Can be thought of as an applicative maybe monad.
 Maybe = Nothing | Just
@@ -54,7 +114,7 @@ def maybe(value):
     return Nothing() if value is None else Just(value)
 
 @pipeable
-def unmaybe(value):
+def unmaybe(value, *, default = None):
     """ Extracts the optional value from an object of type Maybe
 
     This function is the inverse of maybe.
@@ -65,7 +125,7 @@ def unmaybe(value):
     Returns:
         Optional(T): Returns the value wrapped by Just(value) or None 
     """
-    return value.just if isinstance(value, Just) else None
+    return value.just if isinstance(value, Just) else default
 
 _built_in_map = map
 
@@ -80,7 +140,20 @@ def map(func, value):
     Returns:
         Maybe[T]: Returns the result of applying `func` to the optional value, or Nothing()
     """
-    return Just(func(value.just)) if isinstance(value, Just) else Nothing()
+    return value.map(func)
+
+# @pipeable
+# def and_then(func, value):
+#     """Maybes a functions to the value, when it exists
+
+#     Args:
+#         func (Callable[T, Optional[S]]): A function that takes one argument of type T and returns an object of type Optional[S].
+#         value (Maybe[T]): An optional value
+
+#     Returns:
+#         Maybe[T]: Returns Nothing() if the original value is Nothing() or func(x) is None, otherwise returns Just(func(x))
+#     """
+#     return value.and_then(func)
 
 @pipeable
 def just_if(pred, value):
